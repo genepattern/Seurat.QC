@@ -45,10 +45,10 @@ setupR <- function(tenx_data_dir){
     } else {
       if (grepl('.tar', tenx_data_dir, fixed=TRUE)){
           print('Untarring')
-          untar(tenx_data_dir, extir='/temp/10xdata/')
+          untar(tenx_data_dir, exdir='/temp/10xdata/')
         }else if(grepl('.zio', tenx_data_dir, fixed=TRUE)){
           print('Unzipping')
-          unzip(tenx_data_dir, extir='/temp/10xdata/')
+          unzip(tenx_data_dir, exdir='/temp/10xdata/')
         }
     }
 
