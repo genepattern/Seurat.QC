@@ -17,8 +17,7 @@ setupR <- function(tenx_data_dir){
     write("Loading libraries...", stdout())
     suppressMessages(library(Seurat))
     suppressMessages(library(scater))
-    fig_height=450
-    fig_width=800
+    
     # Load the PBMC dataset
     write("Loading the dataset...", stdout())
 
@@ -50,10 +49,15 @@ setupR <- function(tenx_data_dir){
           print('Unzipping')
           unzip(tenx_data_dir, exdir='/temp/10xdata/')
         }
+        print(list.files('/temp/'))
+        print(list.files('/temp/10xdata/'))
     }
-
-    #suppressMessages(pbmc.data <- Read10X(data.dir = "data/pbmc3k/filtered_gene_bc_matrices/hg19/"))
-    suppressMessages(pbmc.data <- Read10X(data.dir = '/temp/10xdata/filtered_gene_bc_matrices/hg19/'))
+    if (dir.exists('/temp/10xdata/filtered_gene_bc_matrices/hg19/')){
+      pbmc.data <- Read10X(data.dir = '/temp/10xdata/filtered_gene_bc_matrices/hg19/')
+    } else {
+      pbmc.data <- Read10X(data.dir =paste('/temp/10xdata/',list.files('/temp/10xdata/'),sep=''))
+    }
+  
 
     ## READ SPARSE COUNTS, IGNRED FOR NOW
     #raw_counts <- readSparseCounts(file="https://datasets.genepattern.org/data/module_support_files/Conos/HNSCC_noribo.txt")
@@ -228,7 +232,7 @@ parser <- add_option(parser, c("--vdhm_num_dims"),type='integer',default=15, hel
 parser <- add_option(parser, c("--cells"),type='integer',default=500, help = "Number of top cells to plot.")
 # ====================================
 #parameter for save_it
-parser <- add_option(parser, c("--file_name"),type='character',default='seurat_preprocessed_dataset', help = "Basename of the file to be saved.")
+parser <- add_option(parser, c("--file_name"),type='character',default='seurat_qcd_dataset', help = "Basename of the file to be saved.")
 # ====================================
 
 
