@@ -15,4 +15,4 @@ params:
     pattern: "MT-"
 assertions:
     jobStatus: success
-    numFiles: 4
+    numFiles: 5

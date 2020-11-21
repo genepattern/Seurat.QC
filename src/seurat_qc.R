@@ -34,7 +34,7 @@ setupR <- function(tenx_data_dir){
       if (grepl('.tar', tenx_data_dir, fixed=TRUE)){
           print('Untarring')
           untar(paste('/temp/',basename(tenx_data_dir),sep=''),exdir='/temp/10xdata/')
-        }else if(grepl('.zio', tenx_data_dir, fixed=TRUE)){
+        }else if(grepl('.zip', tenx_data_dir, fixed=TRUE)){
           print('Unzipping')
           unzip(paste('/temp/',basename(tenx_data_dir),sep=''),exdir='/temp/10xdata/')
         }
@@ -45,16 +45,19 @@ setupR <- function(tenx_data_dir){
       if (grepl('.tar', tenx_data_dir, fixed=TRUE)){
           print('Untarring')
           untar(tenx_data_dir, exdir='/temp/10xdata/')
-        }else if(grepl('.zio', tenx_data_dir, fixed=TRUE)){
+        }else if(grepl('.zip', tenx_data_dir, fixed=TRUE)){
           print('Unzipping')
           unzip(tenx_data_dir, exdir='/temp/10xdata/')
         }
+        print('File extracted to /temp/10xdata/')
         print(list.files('/temp/'))
         print(list.files('/temp/10xdata/'))
     }
     if (dir.exists('/temp/10xdata/filtered_gene_bc_matrices/hg19/')){
       pbmc.data <- Read10X(data.dir = '/temp/10xdata/filtered_gene_bc_matrices/hg19/')
-    } else {
+    } else if (file.exists('/temp/10xdata/matrix.mtx')){
+      pbmc.data <- Read10X(data.dir = '/temp/10xdata/')
+    }else {
       pbmc.data <- Read10X(data.dir =paste('/temp/10xdata/',list.files('/temp/10xdata/'),sep=''))
     }
   
@@ -258,9 +261,15 @@ tripleViolin(args$first_feature, args$second_feature, args$third_feature)
 
 #pbmc <- norm_pbmc(args$norm_method, args$scale_factor)
 
-pbmc <- feat_sel_plot(args$feat_sel_method, args$num_features, args$num_to_label)
+#pbmc <- feat_sel_plot(args$feat_sel_method, args$num_features, args$num_to_label)
+
+to_write <- pbmc@assays[["RNA"]]@counts
+to_write <- data.frame("symbol"=rownames(to_write),to_write)
+write.table(to_write,paste(args$file_name,'_counts.txt',sep=''), row.names=FALSE,  quote=FALSE, sep='\t')
+print('done writing TXT file!')
 
 save_it(paste(args$file_name,'.rds',sep=''))
+print('done writing RDS file!')
 
 print('All done!')
 
