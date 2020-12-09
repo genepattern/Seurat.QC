@@ -56,9 +56,11 @@ setupR <- function(tenx_data_dir){
     if (dir.exists('/temp/10xdata/filtered_gene_bc_matrices/hg19/')){
       pbmc.data <- Read10X(data.dir = '/temp/10xdata/filtered_gene_bc_matrices/hg19/')
     } else if (file.exists('/temp/10xdata/matrix.mtx')){
+      print('Loading data in folder /temp/10xdata/')
       pbmc.data <- Read10X(data.dir = '/temp/10xdata/')
     }else {
-      pbmc.data <- Read10X(data.dir =paste('/temp/10xdata/',list.files('/temp/10xdata/'),sep=''))
+      print(paste('Loading data in folder', '/temp/10xdata/',grep(list.files(path="/temp/10xdata/"), pattern='__MACOSX|.DS_Store', invert=TRUE, value=TRUE),sep=''))
+      pbmc.data <- Read10X(data.dir =paste('/temp/10xdata/', grep(list.files(path="/temp/10xdata/"), pattern='__MACOSX|.DS_Store', invert=TRUE, value=TRUE),sep=''))
     }
   
 
