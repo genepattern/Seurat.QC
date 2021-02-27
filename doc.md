@@ -22,7 +22,7 @@ The `Seurat.QC` Module aims to provide a quick look at some basic single-cell da
 [Seurat](https://satijalab.org/seurat/)
 
 ### Technical Notes
-
+Uses Seurat versuin 3.2.0
 
 ## Parameters
 ---
@@ -36,6 +36,7 @@ The `Seurat.QC` Module aims to provide a quick look at some basic single-cell da
 |second_feature|	[For QC plots] Second feature to plot as a violin plot [typically one of the columns in the matrix.mtx file. Sometimes named features.tsv].|
 |third_feature|	[For QC plots] Third feature to plot as a violin plot [typically one of the columns in the matrix.mtx file. Sometimes named features.tsv]. Leave blank if you don't want this to be plotted.|
 | file_name      | 	Basename of the file to be saved.|
+| export_txt      | 	Wether or not to create a TXT file compatible with some other modules (this requires a large amount of memory and for large datasets it causes unpredicted errors).|
 
 
 ## Output Files
@@ -45,6 +46,8 @@ The `Seurat.QC` Module aims to provide a quick look at some basic single-cell da
     - The `.rds` file can be used on another one of GenePattern's Seurat suite modules, such as the `Seurat.Preprocessing` module.
 2. `<your_output_file_name>.pdf` [typically `Rplots.pdf`]
     - The `.pdf` file which contains plots of the preprocessing steps.
+3. `<file_name>.txt` [typically `seurat_preprocessed_dataset.txt`]
+    - The `.txt` file containing a dense matrix (typically a large file) that can be used on another one of GenePattern's suite modules, such as the `Seurat.BatchCorrection` or `Conos` modules.
 
 
 ## License
@@ -66,4 +69,5 @@ The `Seurat.QC` Module aims to provide a quick look at some basic single-cell da
 
 | Version | Release Date | Description                                 |
 ----------|--------------|---------------------------------------------|
+| 3       | 2021-02-26          | Updating `Seurat.QC` to make creation of .txt dense matrix optional (improving performance.) |
 | 1       | 2020-11-16          | Initial Release of `Seurat.QC` |

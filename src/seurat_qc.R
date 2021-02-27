@@ -98,10 +98,10 @@ set_mito_qc <- function(colName, pat) {
 
 #### Violin Plots
 tripleViolin <- function(first, second, third){
-
+    write("Making violon plots...", stdout())
     feats <- c(first, second, third)
     plot(VlnPlot(pbmc, features = feats, ncol = 3, combine=TRUE), fig.height=5, fig.width=15)
-    return("")
+    return("Violin plots done")
 }
 
 # NORMALIZE DATA
@@ -238,6 +238,7 @@ parser <- add_option(parser, c("--cells"),type='integer',default=500, help = "Nu
 # ====================================
 #parameter for save_it
 parser <- add_option(parser, c("--file_name"),type='character',default='seurat_qcd_dataset', help = "Basename of the file to be saved.")
+parser <- add_option(parser, c("--export_txt"),type='character',default='False', help = "Wether or not to create a TXT file compatible with some other modules (this requires a large amount of memory and for large datasets it causes unpredicted errors).")
 # ====================================
 
 
@@ -265,13 +266,20 @@ tripleViolin(args$first_feature, args$second_feature, args$third_feature)
 
 #pbmc <- feat_sel_plot(args$feat_sel_method, args$num_features, args$num_to_label)
 
-to_write <- pbmc@assays[["RNA"]]@counts
-to_write <- data.frame("symbol"=rownames(to_write),to_write)
-write.table(to_write,paste(args$file_name,'_counts.txt',sep=''), row.names=FALSE,  quote=FALSE, sep='\t')
-print('done writing TXT file!')
+if (args$export_txt == 'True'){
+  write("About to write the dense matrix to a txt file...", stdout())
+  to_write <- pbmc@assays[["RNA"]]@counts
+  to_write <- data.frame("symbol"=rownames(to_write),to_write)
+  write.table(to_write,paste(args$file_name,'_counts.txt',sep=''), row.names=FALSE,  quote=FALSE, sep='\t')
+  print('done writing TXT file!')
+}else{
+  write("Omitting creation of the dense matrix to a txt file...", stdout())
+}
 
+write("Saving RDS file named", stdout())
+write(paste(args$file_name,'.rds',sep=''), stdout())
 save_it(paste(args$file_name,'.rds',sep=''))
-print('done writing RDS file!')
+write('done writing RDS file!', stdout())
 
 print('All done!')
 
