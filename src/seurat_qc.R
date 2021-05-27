@@ -27,40 +27,40 @@ setupR <- function(tenx_data_dir){
     print("About to read")
     print(tenx_data_dir)
     if (grepl('http', tenx_data_dir, fixed=TRUE)){
-      download.file(tenx_data_dir, paste('/temp/',basename(tenx_data_dir),sep=''))
+      download.file(tenx_data_dir, paste('./.temp/',basename(tenx_data_dir),sep=''))
       print("File downloaded to ")
-      print(paste('/temp/',basename(tenx_data_dir),sep=''))
-      print(list.files('/temp/'))
+      print(paste('./.temp/',basename(tenx_data_dir),sep=''))
+      print(list.files('./.temp/'))
       if (grepl('.tar', tenx_data_dir, fixed=TRUE)){
           print('Untarring')
-          untar(paste('/temp/',basename(tenx_data_dir),sep=''),exdir='/temp/10xdata/')
+          untar(paste('./.temp/',basename(tenx_data_dir),sep=''),exdir='./.temp/10xdata/')
         }else if(grepl('.zip', tenx_data_dir, fixed=TRUE)){
           print('Unzipping')
-          unzip(paste('/temp/',basename(tenx_data_dir),sep=''),exdir='/temp/10xdata/')
+          unzip(paste('./.temp/',basename(tenx_data_dir),sep=''),exdir='./.temp/10xdata/')
         }
-      print('File extracted to /temp/10xdata/')
-      print(list.files('/temp/'))
-      print(list.files('/temp/10xdata/'))
+      print('File extracted to ./.temp/10xdata/')
+      print(list.files('./.temp/'))
+      print(list.files('./.temp/10xdata/'))
     } else {
       if (grepl('.tar', tenx_data_dir, fixed=TRUE)){
           print('Untarring')
-          untar(tenx_data_dir, exdir='/temp/10xdata/')
+          untar(tenx_data_dir, exdir='./.temp/10xdata/')
         }else if(grepl('.zip', tenx_data_dir, fixed=TRUE)){
           print('Unzipping')
-          unzip(tenx_data_dir, exdir='/temp/10xdata/')
+          unzip(tenx_data_dir, exdir='./.temp/10xdata/')
         }
-        print('File extracted to /temp/10xdata/')
-        print(list.files('/temp/'))
-        print(list.files('/temp/10xdata/'))
+        print('File extracted to ./.temp/10xdata/')
+        print(list.files('./.temp/'))
+        print(list.files('./.temp/10xdata/'))
     }
-    if (dir.exists('/temp/10xdata/filtered_gene_bc_matrices/hg19/')){
-      pbmc.data <- Read10X(data.dir = '/temp/10xdata/filtered_gene_bc_matrices/hg19/')
-    } else if (file.exists('/temp/10xdata/matrix.mtx')){
-      print('Loading data in folder /temp/10xdata/')
-      pbmc.data <- Read10X(data.dir = '/temp/10xdata/')
+    if (dir.exists('./.temp/10xdata/filtered_gene_bc_matrices/hg19/')){
+      pbmc.data <- Read10X(data.dir = './.temp/10xdata/filtered_gene_bc_matrices/hg19/')
+    } else if (file.exists('./.temp/10xdata/matrix.mtx')){
+      print('Loading data in folder ./.temp/10xdata/')
+      pbmc.data <- Read10X(data.dir = './.temp/10xdata/')
     }else {
-      print(paste('Loading data in folder', '/temp/10xdata/',grep(list.files(path="/temp/10xdata/"), pattern='__MACOSX|.DS_Store', invert=TRUE, value=TRUE),sep=''))
-      pbmc.data <- Read10X(data.dir =paste('/temp/10xdata/', grep(list.files(path="/temp/10xdata/"), pattern='__MACOSX|.DS_Store', invert=TRUE, value=TRUE),sep=''))
+      print(paste('Loading data in folder', './.temp/10xdata/',grep(list.files(path="./.temp/10xdata/"), pattern='__MACOSX|.DS_Store', invert=TRUE, value=TRUE),sep=''))
+      pbmc.data <- Read10X(data.dir =paste('./.temp/10xdata/', grep(list.files(path="./.temp/10xdata/"), pattern='__MACOSX|.DS_Store', invert=TRUE, value=TRUE),sep=''))
     }
   
 

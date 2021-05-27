@@ -1,14 +1,14 @@
-# Seurat.Preprocessing  urn:lsid:genepattern.org:module.analysis:00416:0.1
+# Seurat.Preprocessing  urn:lsid:genepattern.org:module.analysis:00416:0.2
 #Tue Nov 17 02:06:02 UTC 2020
 JVMLevel=
-LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:0.1
+LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:0.2
 author=Edwin F. Juarez;UCSD - Mesirov Lab
 categories=preprocess & utilities;preprocess & utilities;single-cell;single-cell
 commandLine=Rscript --no-save --quiet --no-restore /module/seurat_qc.R --tenx_data_dir <tenx_data_dir> <column_name> <pattern> --first_feature <first_feature> --second_feature <second_feature> --third_feature <third_feature> --file_name <file_name> --export_txt <export_txt>
 cpuType=any
 description=Seurat quality control (First step in the Seurat Suite), using Seurat version 3.2.0.
 fileFormat=rds
-job.docker.image=genepattern/seurat-qc:3.0
+job.docker.image=genepattern/seurat-qc:3.2
 language=any
 name=Seurat.QC
 os=any
