@@ -28,22 +28,30 @@ setupR <- function(tenx_data_dir){
     # UNZIP TBI
     print("About to read")
     print(tenx_data_dir)
+    print(basename(tenx_data_dir))
+    
+    dir.create('./.temp/')
     
     if (grepl('http', tenx_data_dir, fixed=TRUE)){
-      download.file(tenx_data_dir, paste('./.temp/',basename(tenx_data_dir),sep=''))
+      val = download.file(tenx_data_dir, destfile= paste('./.temp/',basename(tenx_data_dir),sep=''), method='wget')
+      print(val)
       print("File downloaded to ")
       print(paste('./.temp/',basename(tenx_data_dir),sep=''))
       print(list.files('./.temp/'))
       if (grepl('.tar', tenx_data_dir, fixed=TRUE)){
           print('Untarring')
           untar(paste('./.temp/',basename(tenx_data_dir),sep=''),exdir='./.temp/10xdata/')
+          print('File extracted to ./.temp/10xdata/')
+          print(list.files('./.temp/'))
+          print(list.files('./.temp/10xdata/'))
         }else if(grepl('.zip', tenx_data_dir, fixed=TRUE)){
           print('Unzipping')
           unzip(paste('./.temp/',basename(tenx_data_dir),sep=''),exdir='./.temp/10xdata/')
+          print('File extracted to ./.temp/10xdata/')
+          print(list.files('./.temp/'))
+          print(list.files('./.temp/10xdata/'))
         }
-      print('File extracted to ./.temp/10xdata/')
-      print(list.files('./.temp/'))
-      print(list.files('./.temp/10xdata/'))
+      
     } else {
       if (grepl('.tar', tenx_data_dir, fixed=TRUE)){
           print('Untarring')
@@ -61,9 +69,14 @@ setupR <- function(tenx_data_dir){
         }
     }
     
-    if (grepl('.loom', paste('./.temp/',basename(tenx_data_dir),sep=''), fixed = TRUE)){
+    if (grepl('.loom', basename(tenx_data_dir), fixed = TRUE)){
       print('Reading a loom file.')
-      loom_object <- Connect(filename=tenx_data_dir, mode ='r')
+      if (file.exists(paste('./.temp/',basename(tenx_data_dir),sep=''))){
+        loom_object <- Connect(filename=paste('./.temp/',basename(tenx_data_dir),sep=''), mode ='r')
+      }
+      else{
+        loom_object <- Connect(filename=tenx_data_dir, mode ='r')
+      }
       seurat_object <- as.Seurat(loom_object)
       print(seurat_object)
       print('done!')
