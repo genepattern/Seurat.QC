@@ -14,9 +14,11 @@
 
 ### Load 10x data function
 setupR <- function(tenx_data_dir){
-    write("Loading libraries...", stdout())
+    cat("Loading libraries...")
     suppressMessages(library(Seurat))
     suppressMessages(library(scater))
+    suppressMessages(library('SeuratDisk'))
+    write('done loading libraries.',stdout())
     
     # Load the PBMC dataset
     write("Loading the dataset...", stdout())
@@ -26,6 +28,7 @@ setupR <- function(tenx_data_dir){
     # UNZIP TBI
     print("About to read")
     print(tenx_data_dir)
+    
     if (grepl('http', tenx_data_dir, fixed=TRUE)){
       download.file(tenx_data_dir, paste('./.temp/',basename(tenx_data_dir),sep=''))
       print("File downloaded to ")
@@ -45,15 +48,27 @@ setupR <- function(tenx_data_dir){
       if (grepl('.tar', tenx_data_dir, fixed=TRUE)){
           print('Untarring')
           untar(tenx_data_dir, exdir='./.temp/10xdata/')
+          print('File extracted to ./.temp/10xdata/')
+          print(list.files('./.temp/'))
+          print(list.files('./.temp/10xdata/'))
         }else if(grepl('.zip', tenx_data_dir, fixed=TRUE)){
           print('Unzipping')
-          unzip(tenx_data_dir, exdir='./.temp/10xdata/')
+          where = unzip(tenx_data_dir, exdir='./.temp/10xdata/')
+          print(where)
+          print('File extracted to ./.temp/10xdata/')
+          print(list.files('./.temp/'))
+          print(list.files('./.temp/10xdata/'))
         }
-        print('File extracted to ./.temp/10xdata/')
-        print(list.files('./.temp/'))
-        print(list.files('./.temp/10xdata/'))
     }
-    if (dir.exists('./.temp/10xdata/filtered_gene_bc_matrices/hg19/')){
+    
+    if (grepl('.loom', paste('./.temp/',basename(tenx_data_dir),sep=''), fixed = TRUE)){
+      print('Reading a loom file.')
+      loom_object <- Connect(filename=tenx_data_dir, mode ='r')
+      seurat_object <- as.Seurat(loom_object)
+      print(seurat_object)
+      print('done!')
+      return(seurat_object)
+    } else if (dir.exists('./.temp/10xdata/filtered_gene_bc_matrices/hg19/')){
       pbmc.data <- Read10X(data.dir = './.temp/10xdata/filtered_gene_bc_matrices/hg19/')
     } else if (file.exists('./.temp/10xdata/matrix.mtx')){
       print('Loading data in folder ./.temp/10xdata/')
@@ -63,7 +78,6 @@ setupR <- function(tenx_data_dir){
       pbmc.data <- Read10X(data.dir =paste('./.temp/10xdata/', grep(list.files(path="./.temp/10xdata/"), pattern='__MACOSX|.DS_Store', invert=TRUE, value=TRUE),sep=''))
     }
   
-
     ## READ SPARSE COUNTS, IGNRED FOR NOW
     #raw_counts <- readSparseCounts(file="https://datasets.genepattern.org/data/module_support_files/Conos/HNSCC_noribo.txt")
     #hnscc <- CreateSeuratObject(counts = raw_counts, project = "HNSCC")
@@ -282,5 +296,4 @@ save_it(paste(args$file_name,'.rds',sep=''))
 write('done writing RDS file!', stdout())
 
 print('All done!')
-
 #sessionInfo()

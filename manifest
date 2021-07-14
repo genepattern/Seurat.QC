@@ -1,22 +1,23 @@
-# Seurat.Preprocessing  urn:lsid:genepattern.org:module.analysis:00416:0.2
-#Tue Nov 17 02:06:02 UTC 2020
+# Seurat.QC  urn:lsid:genepattern.org:module.analysis:00416:3.3
+#Wed Jul 14 02:08:50 UTC 2021
 JVMLevel=
-LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:0.2
-author=Edwin F. Juarez;UCSD - Mesirov Lab
-categories=preprocess & utilities;preprocess & utilities;single-cell;single-cell
-commandLine=Rscript --no-save --quiet --no-restore /module/seurat_qc.R --tenx_data_dir <tenx_data_dir> <column_name> <pattern> --first_feature <first_feature> --second_feature <second_feature> --third_feature <third_feature> --file_name <file_name> --export_txt <export_txt>
+LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:3.3
+author=Edwin F. Juarez & Jonathan Zamora;UCSD - Mesirov Lab
+categories=preprocess & utilities;single-cell
+commandLine=Rscript --no-save --quiet --no-restore <libdir>seurat_qc.R --tenx_data_dir <tenx_data_dir> <column_name> <pattern> --first_feature <first_feature> --second_feature <second_feature> --third_feature <third_feature> --file_name <file_name> --export_txt <export_txt>
 cpuType=any
-description=Seurat quality control (First step in the Seurat Suite), using Seurat version 3.2.0.
+description=Seurat quality control (First step in the Seurat Suite), using Seurat version 4.0.3.
+documentationUrl=https\://github.com/genepattern/Seurat.QC/blob/develop/doc.md
 fileFormat=rds
-job.docker.image=genepattern/seurat-qc:3.2
+job.docker.image=genepattern/seurat-qc\:3.3
 language=any
 name=Seurat.QC
 os=any
 p1_MODE=IN
 p1_TYPE=FILE
 p1_default_value=
-p1_description=List of files to load.
-p1_fileFormat=gz;tar;tar.gz;zip;.tar.gz
+p1_description=10x zip file to load or Loom file from HCA.
+p1_fileFormat=.tar.gz;gz;tar;tar.gz;zip
 p1_flag=--tenx_data_dir
 p1_name=tenx_data_dir
 p1_numValues=0..1
@@ -117,8 +118,9 @@ p8_prefix_when_specified=
 p8_type=java.lang.String
 p8_value=False\=False;True\=True
 privacy=public
-quality=production
+quality=development
+src.repo=https\://github.com/genepattern/Seurat.QC
 taskDoc=doc.html
 taskType=preprocess & utilities
 userid=edjuaro
-version=Making the creation of the TXT file optional.
+version=Reading new version of HCA (Loom)
