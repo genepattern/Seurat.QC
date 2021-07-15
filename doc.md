@@ -1,12 +1,12 @@
-# Seurat.QC (v1)
+# Seurat.QC (v4)
 ---
 **Description**: GenePattern module which implements the QC steps for Seurat. This is typically the first step in the Seurat Suite modules (unless you are doing batch correction, then you want to run Seurat.BatchCorrection).
 
-**Author**: Edwin Juárez
+**Authors**: Edwin Juárez and Jonathan Zamora
 
 **Contact**: [Forum Link](https://groups.google.com/forum/?utm_medium=email&utm_source=footer#!forum/genepattern-help)
 
-**Algorithm Version**: Seurat 3.2.0
+**Algorithm Version**: Seurat 4.0.3
 
 ---
 
@@ -21,15 +21,19 @@ The `Seurat.QC` Module aims to provide a quick look at some basic single-cell da
 
 [Seurat](https://satijalab.org/seurat/)
 
+[Module Repo](https://github.com/genepattern/Seurat.QC/releases/tag/v4.0)
+
+[Module's Docker Image](https://hub.docker.com/layers/genepattern/seurat-qc/3.3/images/sha256-e3446b4143174358ed03366f16d20c7507fd53a6ba3895cedda580f078e77f1d?context=repo)
+
 ### Technical Notes
-Uses Seurat versuin 3.2.0
+Uses Seurat version 4.0.3
 
 ## Parameters
 ---
 
 | Name | Description |
 -------|--------------
-| tenx_data_dir         | `.tar.gz` or `.zip` file input that contains the  raw single cell data -- currently only 10x data is supported.|
+| input_file         | `.tar.gz`, `.zip`, or `.loom` file input that contains the  raw single cell data -- currently only 10x data and .loom files from HCA are supported.|
 | column_name            | 	column name of percent mitochondrial genes. Note: not all datasets have this column, those who do often times name it percent.mt].|
 | pattern        | 	what pattern to use to label mitochondrial genes [often times this is annotated as MT-].|
 | first_feature  | [For QC plots] First feature to plot as a violin plot [typically one of the columns in the matrix.mtx file. Sometimes named features.tsv].|
@@ -69,5 +73,6 @@ Uses Seurat versuin 3.2.0
 
 | Version | Release Date | Description                                 |
 ----------|--------------|---------------------------------------------|
+| 4       | 2021-07-15          | Accepting Loom files from HCA |
 | 3       | 2021-02-26          | Updating `Seurat.QC` to make creation of .txt dense matrix optional (improving performance.) |
 | 1       | 2020-11-16          | Initial Release of `Seurat.QC` |

@@ -23,8 +23,8 @@ RUN R -e "library('SeuratDisk');sessionInfo()"
 
 #ADD src/seurat_qc.R /module/
 
-
-#USER GPUSER
+USER GPUSER
+RUN whoami
 
 # build using this:
 # docker build -t genepattern/seurat-qc:3.3 .

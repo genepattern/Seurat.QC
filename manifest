@@ -1,13 +1,13 @@
-# Seurat.QC  urn:lsid:genepattern.org:module.analysis:00416:3.3
+# Seurat.QC  urn:lsid:genepattern.org:module.analysis:00416:4.0
 #Wed Jul 14 02:08:50 UTC 2021
 JVMLevel=
-LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:3.3
+LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:4.0
 author=Edwin F. Juarez & Jonathan Zamora;UCSD - Mesirov Lab
 categories=preprocess & utilities;single-cell
-commandLine=Rscript --no-save --quiet --no-restore <libdir>seurat_qc.R --tenx_data_dir <tenx_data_dir> <column_name> <pattern> --first_feature <first_feature> --second_feature <second_feature> --third_feature <third_feature> --file_name <file_name> --export_txt <export_txt>
+commandLine=Rscript --no-save --quiet --no-restore <libdir>seurat_qc.R --input_file <input_file> <column_name> <pattern> --first_feature <first_feature> --second_feature <second_feature> --third_feature <third_feature> --file_name <file_name> --export_txt <export_txt>
 cpuType=any
 description=Seurat quality control (First step in the Seurat Suite), using Seurat version 4.0.3.
-documentationUrl=https\://github.com/genepattern/Seurat.QC/blob/develop/doc.md
+documentationUrl=https://github.com/genepattern/Seurat.QC/blob/v4.0/doc.md
 fileFormat=rds
 job.docker.image=genepattern/seurat-qc\:3.3
 language=any
@@ -17,9 +17,9 @@ p1_MODE=IN
 p1_TYPE=FILE
 p1_default_value=
 p1_description=10x zip file to load or Loom file from HCA.
-p1_fileFormat=.tar.gz;gz;tar;tar.gz;zip
-p1_flag=--tenx_data_dir
-p1_name=tenx_data_dir
+p1_fileFormat=.tar.gz;gz;tar;tar.gz;zip;loom
+p1_flag=--input_file
+p1_name=input_file
 p1_numValues=0..1
 p1_optional=
 p1_prefix=
@@ -118,8 +118,8 @@ p8_prefix_when_specified=
 p8_type=java.lang.String
 p8_value=False\=False;True\=True
 privacy=public
-quality=development
-src.repo=https\://github.com/genepattern/Seurat.QC
+quality=production
+src.repo=https://github.com/genepattern/Seurat.QC/releases/tag/v4.0
 taskDoc=doc.html
 taskType=preprocess & utilities
 userid=edjuaro

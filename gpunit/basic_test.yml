@@ -1,7 +1,7 @@
 name: "Seurat.QC - Basic test"
 module: Seurat.QC
 params:
-    tenx_data_dir: "https://datasets.genepattern.org/data/module_support_files/Seurat_QC/bone-marrow-myeloma-human-hematopoeitic-10XV2.loom"
+    input_file: "https://datasets.genepattern.org/data/module_support_files/Seurat_QC/bone-marrow-myeloma-human-hematopoeitic-10XV2.loom"
 assertions:
     jobStatus: success
     numFiles: 4

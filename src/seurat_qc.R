@@ -231,7 +231,7 @@ parser = OptionParser()
 # parameter types: 'character', 'integer', 'logical', 'double', or 'complex'
 # ====================================
 # Paramter for setupR
-parser <- add_option(parser, c("--tenx_data_dir"), help = "List of files to load.")
+parser <- add_option(parser, c("--input_file"), help = "10x zip file to load or Loom file from HCA.")
 # ====================================
 # PARAMETERS for set_mito_qc
 parser <- add_option(parser, c("--column_name"), type='character', default='PARAMETER_LEFT_INTENTIONALLY_BLANK', help = "column name of percent mitochondrial genes [often times it's called percent.mt].")
@@ -280,9 +280,11 @@ print('==========================================================')
 #Begin Running the functions
 ################################################################################
 
+# Setting up the PDF file for the plots
+pdf(file=paste(args$file_name,'.pdf',sep=''))
 
 # Call the setupR function
-suppressMessages(pbmc <- setupR(args$tenx_data_dir))
+suppressMessages(pbmc <- setupR(args$input_file))
 
 # call the set_mito_qc function
 suppressMessages(pbmc <- set_mito_qc(args$column_name, args$pattern))
