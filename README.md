@@ -1,2 +1,2 @@
 # Seurat.QC
-Quality control for single cell RNA-seq analyses using Seurat.
+Seurat QC module, part of the Seurat Suite (typically the first step).
