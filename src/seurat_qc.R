@@ -30,9 +30,24 @@ setupR <- function(tenx_data_dir){
     print(tenx_data_dir)
     print(basename(tenx_data_dir))
     
+    # unlink('./.temp/',recursive=FALSE)
     dir.create('./.temp/')
     
-    if (grepl('http', tenx_data_dir, fixed=TRUE)){
+    
+    hca =FALSE
+    
+      
+    if (grepl('humancellatlas.org',tenx_data_dir,fixed=TRUE)){
+        print('Downloading file from HCA')
+        hca = TRUE
+        val = download.file(tenx_data_dir, destfile= paste('./.temp/temp.loom',sep=''), method='wget')
+        print(val)
+        print("File downloaded to ")
+        # print(paste('./.temp/HCA_dataset.loom',))
+        files = list.files('./.temp/')
+        print(files)
+        
+      }else if (grepl('http', tenx_data_dir, fixed=TRUE)){
       val = download.file(tenx_data_dir, destfile= paste('./.temp/',basename(tenx_data_dir),sep=''), method='wget')
       print(val)
       print("File downloaded to ")
@@ -69,7 +84,18 @@ setupR <- function(tenx_data_dir){
         }
     }
     
-    if (grepl('.loom', basename(tenx_data_dir), fixed = TRUE)){
+    if(hca){
+    cat('Reading the HCA loom file...')
+    loom_object <- Connect(filename='./.temp/temp.loom', mode ='r')
+    print(' done.')
+    cat('Transforming that loom file into a Seurat object...')
+    seurat_object <- as.Seurat(loom_object)
+    print(' done.')
+    print(seurat_object)
+    print('done!')
+    return(seurat_object)
+    
+    }else if (grepl('.loom', basename(tenx_data_dir), fixed = TRUE)){
       print('Reading a loom file.')
       if (file.exists(paste('./.temp/',basename(tenx_data_dir),sep=''))){
         loom_object <- Connect(filename=paste('./.temp/',basename(tenx_data_dir),sep=''), mode ='r')

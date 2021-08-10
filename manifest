@@ -1,7 +1,7 @@
-# Seurat.QC  urn:lsid:genepattern.org:module.analysis:00416:4.0
+# Seurat.QC  urn:lsid:genepattern.org:module.analysis:00416:4.1
 #Wed Jul 14 02:08:50 UTC 2021
 JVMLevel=
-LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:4.0
+LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:4.1
 author=Edwin F. Juarez & Jonathan Zamora;UCSD - Mesirov Lab
 categories=preprocess & utilities;single-cell
 commandLine=Rscript --no-save --quiet --no-restore <libdir>seurat_qc.R --input_file <input_file> <column_name> <pattern> --first_feature <first_feature> --second_feature <second_feature> --third_feature <third_feature> --file_name <file_name> --export_txt <export_txt>
@@ -123,4 +123,4 @@ src.repo=https://github.com/genepattern/Seurat.QC/releases/tag/v4.0
 taskDoc=doc.html
 taskType=preprocess & utilities
 userid=edjuaro
-version=Reading new version of HCA (Loom)
+version=Reading new version of HCA (Loom), patching url reading bug
