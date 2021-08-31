@@ -1,15 +1,16 @@
-# Seurat.QC  urn:lsid:genepattern.org:module.analysis:00416:4.1
-#Wed Jul 14 02:08:50 UTC 2021
+#Seurat.QC
+#Mon Aug 23 18:28:05 UTC 2021
 JVMLevel=
-LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:4.1
+LSID=urn\:lsid\:genepattern.org\:module.analysis\:00416\:5.0
 author=Edwin F. Juarez & Jonathan Zamora;UCSD - Mesirov Lab
 categories=preprocess & utilities;single-cell
 commandLine=Rscript --no-save --quiet --no-restore <libdir>seurat_qc.R --input_file <input_file> <column_name> <pattern> --first_feature <first_feature> --second_feature <second_feature> --third_feature <third_feature> --file_name <file_name> --export_txt <export_txt>
 cpuType=any
 description=Seurat quality control (First step in the Seurat Suite), using Seurat version 4.0.3.
-documentationUrl=https://github.com/genepattern/Seurat.QC/blob/v4.0/doc.md
+documentationUrl=https\://github.com/genepattern/Seurat.QC/blob/v5.0/doc.md
 fileFormat=rds
-job.docker.image=genepattern/seurat-qc\:3.3
+job.docker.image=genepattern/seurat-qc\:5.0
+job.memory=4Gb
 language=any
 name=Seurat.QC
 os=any
@@ -118,9 +119,10 @@ p8_prefix_when_specified=
 p8_type=java.lang.String
 p8_value=False\=False;True\=True
 privacy=public
-quality=production
-src.repo=https://github.com/genepattern/Seurat.QC/releases/tag/v4.0
+publicationDate=08/10/2021 18\:56 
+quality=preproduction
+src.repo=https\://github.com/genepattern/Seurat.QC/releases/tag/v5.0
 taskDoc=doc.html
 taskType=preprocess & utilities
 userid=edjuaro
-version=Reading new version of HCA (Loom), patching url reading bug
+version=Adding a new parameter to read the HCA url directly.

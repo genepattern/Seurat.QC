@@ -13,7 +13,7 @@
 ################################################################################
 
 ### Load 10x data function
-setupR <- function(tenx_data_dir){
+setupR <- function(tenx_data_dir, hca_url){
     cat("Loading libraries...")
     suppressMessages(library(Seurat))
     suppressMessages(library(scater))
@@ -36,11 +36,11 @@ setupR <- function(tenx_data_dir){
     
     hca =FALSE
     
-      
-    if (grepl('humancellatlas.org',tenx_data_dir,fixed=TRUE)){
+    if (hca_url!=''){
         print('Downloading file from HCA')
         hca = TRUE
-        val = download.file(tenx_data_dir, destfile= paste('./.temp/temp.loom',sep=''), method='wget')
+        val = system(paste("wget -O ./.temp/temp.loom ",hca_url,sep=''), intern = TRUE, ignore.stderr = TRUE)
+        # val = download.file(hca_url, destfile= paste('./.temp/temp.loom',sep=''), method='wget')
         print(val)
         print("File downloaded to ")
         # print(paste('./.temp/HCA_dataset.loom',))
@@ -257,7 +257,8 @@ parser = OptionParser()
 # parameter types: 'character', 'integer', 'logical', 'double', or 'complex'
 # ====================================
 # Paramter for setupR
-parser <- add_option(parser, c("--input_file"), help = "10x zip file to load or Loom file from HCA.")
+parser <- add_option(parser, c("--input_file"),type='character', default='', help = "10x zip file to load or Loom file from HCA.")
+parser <- add_option(parser, c("--hca_url"),type='character', default='', help = "URL to the Project Loom file from the Human Cell Atlas, obtained by the HCA api.")
 # ====================================
 # PARAMETERS for set_mito_qc
 parser <- add_option(parser, c("--column_name"), type='character', default='PARAMETER_LEFT_INTENTIONALLY_BLANK', help = "column name of percent mitochondrial genes [often times it's called percent.mt].")
@@ -310,7 +311,7 @@ print('==========================================================')
 pdf(file=paste(args$file_name,'.pdf',sep=''))
 
 # Call the setupR function
-suppressMessages(pbmc <- setupR(args$input_file))
+suppressMessages(pbmc <- setupR(args$input_file, args$hca_url))
 
 # call the set_mito_qc function
 suppressMessages(pbmc <- set_mito_qc(args$column_name, args$pattern))
