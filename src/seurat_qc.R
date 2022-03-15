@@ -39,8 +39,7 @@ setupR <- function(tenx_data_dir, hca_url){
     if (hca_url!=''){
         print('Downloading file from HCA')
         hca = TRUE
-        val = system(paste("wget -O ./.temp/temp.loom ",hca_url,sep=''), intern = TRUE, ignore.stderr = TRUE)
-        # val = download.file(hca_url, destfile= paste('./.temp/temp.loom',sep=''), method='wget')
+        val = download.file(hca_url, destfile= paste('./.temp/temp.loom',sep=''), method='wget')
         print(val)
         print("File downloaded to ")
         # print(paste('./.temp/HCA_dataset.loom',))

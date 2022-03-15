@@ -1,0 +1,25 @@
+[
+    {
+        "name": "Input Dataset",
+        "description": "Provide the input dataset using only one of the two following parameters.",
+        "hidden": false,
+        "parameters": [
+            "input_file",
+            "hca_url"
+        ]
+    },
+    {
+        "name": "QC Plots",
+        "description": "",
+        "hidden": false,
+        "parameters": [
+            "column_name",
+            "pattern",
+            "file_name",
+            "first_feature",
+            "second_feature",
+            "third_feature",
+            "export_txt"
+        ]
+    }
+]
